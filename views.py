@@ -27,4 +27,8 @@ def delete(request, id):
 
 def edit(request, id):
     students=Students.objects.get(id=id)
+    form= StudentsForm(request.POST,instance=students)
+    if form.is_valid():
+        form.save()
+        return redirect("/view")
     return render(request, 'edit.html',{'students':students})
